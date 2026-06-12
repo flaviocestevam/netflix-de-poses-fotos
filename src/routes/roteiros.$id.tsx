@@ -69,7 +69,7 @@ function ScriptDetailPage() {
               <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary/15 text-sm font-bold text-primary">
                 {idx + 1}
               </div>
-              <img src={p.image_url} alt={p.title} className="h-20 w-20 shrink-0 rounded-xl object-cover md:h-24 md:w-24" />
+              <img src={p.image_url ?? ""} alt={p.title} className="h-20 w-20 shrink-0 rounded-xl object-cover md:h-24 md:w-24" />
               <div className="min-w-0 flex-1">
                 <div className="font-display text-base font-semibold leading-tight md:text-lg">{p.title}</div>
                 <p className="mt-1 line-clamp-2 text-xs text-muted-foreground md:text-sm">{p.description}</p>

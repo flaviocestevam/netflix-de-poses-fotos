@@ -11,7 +11,7 @@ export function PoseCard({ pose, compact = false }: { pose: any; compact?: boole
     >
       <div className={`relative ${compact ? "aspect-square" : "aspect-[3/4]"}`}>
         <img
-          src={pose.image_url}
+          src={pose.image_url ?? ""}
           alt={pose.title}
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover transition group-hover:scale-105"

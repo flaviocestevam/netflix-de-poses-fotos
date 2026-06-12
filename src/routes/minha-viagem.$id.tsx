@@ -77,7 +77,7 @@ function TripDetailPage() {
             return (
               <Link key={p.id} to="/pose/$id" params={{ id: p.id }} className="flex items-center gap-4 rounded-2xl border border-border/60 bg-card/60 p-3 hover:border-primary/40">
                 <Icon className={`h-5 w-5 shrink-0 ${color}`} />
-                <img src={p.image_url} alt={p.title} className="h-16 w-16 shrink-0 rounded-xl object-cover" />
+                <img src={p.image_url ?? ""} alt={p.title} className="h-16 w-16 shrink-0 rounded-xl object-cover" />
                 <div className="min-w-0 flex-1">
                   <div className="text-sm font-semibold leading-tight">{p.title}</div>
                   <div className="mt-0.5 text-[11px] text-muted-foreground capitalize">{status.replace("_", " ")}</div>
