@@ -1,0 +1,10 @@
+GRANT SELECT ON public.categories TO anon;
+GRANT SELECT ON public.poses TO anon;
+GRANT SELECT ON public.scripts TO anon;
+GRANT SELECT ON public.script_poses TO anon;
+GRANT SELECT ON public.downloads TO anon;
+CREATE POLICY "categories read anon" ON public.categories FOR SELECT TO anon USING (true);
+CREATE POLICY "poses read anon" ON public.poses FOR SELECT TO anon USING (true);
+CREATE POLICY "scripts read anon" ON public.scripts FOR SELECT TO anon USING (true);
+CREATE POLICY "script_poses read anon" ON public.script_poses FOR SELECT TO anon USING (true);
+CREATE POLICY "downloads read anon" ON public.downloads FOR SELECT TO anon USING (true);
