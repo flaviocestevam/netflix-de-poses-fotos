@@ -1,45 +1,37 @@
-import { useRouterState, useNavigate } from "@tanstack/react-router";
-import { Home, Grid3x3, Zap, Heart, Plane, Map, Download, HelpCircle, User, LogOut, Sparkles } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { Home, Grid3x3, Heart, Plane, Map, Sparkles, User, Eye } from "lucide-react";
 import type { ReactNode } from "react";
 
 const desktopNav = [
   { to: "/dashboard", label: "Início", icon: Home },
-  { to: "/dashboard#cenarios", label: "Categorias", icon: Grid3x3 },
-  { to: "/dashboard#sos", label: "SOS", icon: Sparkles },
-  { to: "/dashboard#roteiros", label: "Roteiros", icon: Map },
-  { to: "/dashboard#viagem", label: "Minha Viagem", icon: Plane },
-  { to: "/dashboard#favoritos", label: "Favoritos", icon: Heart },
-];
+  { to: "/sos", label: "SOS", icon: Sparkles },
+  { to: "/modo-30s", label: "Modo 30s", icon: Grid3x3 },
+  { to: "/roteiros", label: "Roteiros", icon: Map },
+  { to: "/minha-viagem", label: "Minha Viagem", icon: Plane },
+  { to: "/favoritos", label: "Favoritos", icon: Heart },
+] as const;
 
 const mobileNav = [
   { to: "/dashboard", label: "Início", icon: Home, hero: false },
-  { to: "/dashboard#cenarios", label: "Categorias", icon: Grid3x3, hero: false },
-  { to: "/dashboard#sos", label: "SOS", icon: Sparkles, hero: true },
-  { to: "/dashboard#viagem", label: "Viagem", icon: Plane, hero: false },
-  { to: "/dashboard#favoritos", label: "Favoritos", icon: Heart, hero: false },
-];
+  { to: "/roteiros", label: "Roteiros", icon: Map, hero: false },
+  { to: "/sos", label: "SOS", icon: Sparkles, hero: true },
+  { to: "/minha-viagem", label: "Viagem", icon: Plane, hero: false },
+  { to: "/favoritos", label: "Favoritos", icon: Heart, hero: false },
+] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const navigate = useNavigate();
-
-  const isActive = (to: string) => {
-    const base = to.split("#")[0];
-    return base === pathname || (base !== "/" && pathname.startsWith(base));
-  };
-
-  async function signOut() {
-    await supabase.auth.signOut();
-    navigate({ to: "/auth", replace: true });
-  }
+  const isActive = (to: string) => to === pathname || (to !== "/" && pathname.startsWith(to));
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Top bar */}
-      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+      <div className="sticky top-0 z-50 border-b border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-center text-[11px] font-medium text-amber-200 backdrop-blur">
+        <span className="inline-flex items-center gap-1.5"><Eye className="h-3 w-3" /> Modo preview · login desabilitado para análise</span>
+      </div>
+      <header className="sticky top-7 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
-          <a href="/dashboard" className="flex items-center gap-2">
+          <Link to="/dashboard" className="flex items-center gap-2">
             <div className="grid h-9 w-9 place-items-center rounded-xl gradient-rose text-primary-foreground">
               <Sparkles className="h-5 w-5" />
             </div>
@@ -47,35 +39,35 @@ export function AppShell({ children }: { children: ReactNode }) {
               <div className="font-display text-lg font-bold tracking-tight">Netflix de Poses</div>
               <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Área da cliente</div>
             </div>
-          </a>
+          </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
             {desktopNav.map((item) => {
               const Icon = item.icon;
               const active = isActive(item.to);
               return (
-                <a
+                <Link
                   key={item.to}
-                  href={item.to}
+                  to={item.to}
                   className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-sm transition-colors ${
                     active ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                   }`}
                 >
                   <Icon className="h-4 w-4" />
                   {item.label}
-                </a>
+                </Link>
               );
             })}
           </nav>
 
           <div className="flex items-center gap-1">
-            <button
-              onClick={signOut}
+            <Link
+              to="/conta"
               className="grid h-9 w-9 place-items-center rounded-full bg-secondary text-foreground/80 hover:bg-secondary/70"
-              aria-label="Sair"
+              aria-label="Conta"
             >
-              <LogOut className="h-4 w-4" />
-            </button>
+              <User className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </header>
@@ -93,26 +85,26 @@ export function AppShell({ children }: { children: ReactNode }) {
             if (item.hero) {
               return (
                 <li key={item.to} className="-mt-7">
-                  <a href={item.to} className="flex flex-col items-center gap-1">
+                  <Link to={item.to} className="flex flex-col items-center gap-1">
                     <span className="grid h-14 w-14 place-items-center rounded-full gradient-rose text-primary-foreground shadow-lg shadow-primary/30 ring-4 ring-background">
                       <Icon className="h-6 w-6" />
                     </span>
                     <span className="text-[10px] font-semibold uppercase tracking-wide">{item.label}</span>
-                  </a>
+                  </Link>
                 </li>
               );
             }
             return (
               <li key={item.to}>
-                <a
-                  href={item.to}
+                <Link
+                  to={item.to}
                   className={`flex min-w-[56px] flex-col items-center gap-0.5 rounded-xl px-2 py-1.5 ${
                     active ? "text-primary" : "text-muted-foreground"
                   }`}
                 >
                   <Icon className="h-5 w-5" />
                   <span className="text-[10px]">{item.label}</span>
-                </a>
+                </Link>
               </li>
             );
           })}
