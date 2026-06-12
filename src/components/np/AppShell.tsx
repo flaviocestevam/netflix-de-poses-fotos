@@ -1,33 +1,33 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { useRouterState, useNavigate } from "@tanstack/react-router";
 import { Home, Grid3x3, Zap, Heart, Plane, Map, Download, HelpCircle, User, LogOut, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
 const desktopNav = [
-  { to: "/", label: "Início", icon: Home },
-  { to: "/cenarios", label: "Categorias", icon: Grid3x3 },
-  { to: "/modo-30s", label: "Modo 30s", icon: Zap },
-  { to: "/roteiros", label: "Roteiros", icon: Map },
-  { to: "/minha-viagem", label: "Minha Viagem", icon: Plane },
-  { to: "/favoritos", label: "Favoritos", icon: Heart },
-  { to: "/downloads", label: "Downloads", icon: Download },
-  { to: "/como-usar", label: "Como usar", icon: HelpCircle },
+  { to: "/dashboard", label: "Início", icon: Home },
+  { to: "/dashboard#cenarios", label: "Categorias", icon: Grid3x3 },
+  { to: "/dashboard#sos", label: "SOS", icon: Sparkles },
+  { to: "/dashboard#roteiros", label: "Roteiros", icon: Map },
+  { to: "/dashboard#viagem", label: "Minha Viagem", icon: Plane },
+  { to: "/dashboard#favoritos", label: "Favoritos", icon: Heart },
 ];
 
 const mobileNav = [
-  { to: "/", label: "Início", icon: Home },
-  { to: "/cenarios", label: "Categorias", icon: Grid3x3 },
-  { to: "/sos", label: "SOS", icon: Sparkles, hero: true },
-  { to: "/minha-viagem", label: "Viagem", icon: Plane },
-  { to: "/favoritos", label: "Favoritos", icon: Heart },
+  { to: "/dashboard", label: "Início", icon: Home, hero: false },
+  { to: "/dashboard#cenarios", label: "Categorias", icon: Grid3x3, hero: false },
+  { to: "/dashboard#sos", label: "SOS", icon: Sparkles, hero: true },
+  { to: "/dashboard#viagem", label: "Viagem", icon: Plane, hero: false },
+  { to: "/dashboard#favoritos", label: "Favoritos", icon: Heart, hero: false },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const navigate = useNavigate();
 
-  const isActive = (to: string) => to === "/" ? pathname === "/" : pathname.startsWith(to);
+  const isActive = (to: string) => {
+    const base = to.split("#")[0];
+    return base === pathname || (base !== "/" && pathname.startsWith(base));
+  };
 
   async function signOut() {
     await supabase.auth.signOut();
@@ -39,7 +39,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       {/* Top bar */}
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
-          <Link to="/" className="flex items-center gap-2">
+          <a href="/dashboard" className="flex items-center gap-2">
             <div className="grid h-9 w-9 place-items-center rounded-xl gradient-rose text-primary-foreground">
               <Sparkles className="h-5 w-5" />
             </div>
@@ -47,38 +47,31 @@ export function AppShell({ children }: { children: ReactNode }) {
               <div className="font-display text-lg font-bold tracking-tight">Netflix de Poses</div>
               <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Área da cliente</div>
             </div>
-          </Link>
+          </a>
 
           <nav className="hidden items-center gap-1 lg:flex">
             {desktopNav.map((item) => {
               const Icon = item.icon;
               const active = isActive(item.to);
               return (
-                <Link
+                <a
                   key={item.to}
-                  to={item.to}
+                  href={item.to}
                   className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-sm transition-colors ${
                     active ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                   }`}
                 >
                   <Icon className="h-4 w-4" />
                   {item.label}
-                </Link>
+                </a>
               );
             })}
           </nav>
 
           <div className="flex items-center gap-1">
-            <Link
-              to="/conta"
-              className="grid h-9 w-9 place-items-center rounded-full bg-secondary text-foreground/80 hover:bg-secondary/70"
-              aria-label="Minha conta"
-            >
-              <User className="h-4 w-4" />
-            </Link>
             <button
               onClick={signOut}
-              className="hidden h-9 w-9 place-items-center rounded-full bg-secondary text-foreground/80 hover:bg-secondary/70 md:grid"
+              className="grid h-9 w-9 place-items-center rounded-full bg-secondary text-foreground/80 hover:bg-secondary/70"
               aria-label="Sair"
             >
               <LogOut className="h-4 w-4" />
@@ -100,29 +93,26 @@ export function AppShell({ children }: { children: ReactNode }) {
             if (item.hero) {
               return (
                 <li key={item.to} className="-mt-7">
-                  <Link
-                    to={item.to}
-                    className="flex flex-col items-center gap-1"
-                  >
+                  <a href={item.to} className="flex flex-col items-center gap-1">
                     <span className="grid h-14 w-14 place-items-center rounded-full gradient-rose text-primary-foreground shadow-lg shadow-primary/30 ring-4 ring-background">
                       <Icon className="h-6 w-6" />
                     </span>
                     <span className="text-[10px] font-semibold uppercase tracking-wide">{item.label}</span>
-                  </Link>
+                  </a>
                 </li>
               );
             }
             return (
               <li key={item.to}>
-                <Link
-                  to={item.to}
+                <a
+                  href={item.to}
                   className={`flex min-w-[56px] flex-col items-center gap-0.5 rounded-xl px-2 py-1.5 ${
                     active ? "text-primary" : "text-muted-foreground"
                   }`}
                 >
                   <Icon className="h-5 w-5" />
                   <span className="text-[10px]">{item.label}</span>
-                </Link>
+                </a>
               </li>
             );
           })}
