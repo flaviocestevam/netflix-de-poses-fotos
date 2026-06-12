@@ -14,7 +14,418 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      categories: {
+        Row: {
+          category_type: string
+          cover_image: string | null
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          pose_count: number | null
+          slug: string
+          sort_order: number | null
+          tag: string | null
+        }
+        Insert: {
+          category_type?: string
+          cover_image?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          pose_count?: number | null
+          slug: string
+          sort_order?: number | null
+          tag?: string | null
+        }
+        Update: {
+          category_type?: string
+          cover_image?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          pose_count?: number | null
+          slug?: string
+          sort_order?: number | null
+          tag?: string | null
+        }
+        Relationships: []
+      }
+      downloads: {
+        Row: {
+          access_level: string
+          cover_image: string | null
+          created_at: string
+          description: string | null
+          file_url: string | null
+          id: string
+          title: string
+          total_items: number | null
+          type: string
+        }
+        Insert: {
+          access_level?: string
+          cover_image?: string | null
+          created_at?: string
+          description?: string | null
+          file_url?: string | null
+          id?: string
+          title: string
+          total_items?: number | null
+          type?: string
+        }
+        Update: {
+          access_level?: string
+          cover_image?: string | null
+          created_at?: string
+          description?: string | null
+          file_url?: string | null
+          id?: string
+          title?: string
+          total_items?: number | null
+          type?: string
+        }
+        Relationships: []
+      }
+      favorites: {
+        Row: {
+          created_at: string
+          id: string
+          list_name: string | null
+          pose_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          list_name?: string | null
+          pose_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          list_name?: string | null
+          pose_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "favorites_pose_id_fkey"
+            columns: ["pose_id"]
+            isOneToOne: false
+            referencedRelation: "poses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      poses: {
+        Row: {
+          category_id: string | null
+          common_mistake: string | null
+          created_at: string
+          description: string | null
+          difficulty: string
+          downloadable: boolean
+          estimated_seconds: number
+          framing: string | null
+          how_to_do: string | null
+          id: string
+          image_url: string | null
+          is_30s: boolean
+          is_sos: boolean
+          natural_tip: string | null
+          scenario: string | null
+          style: string | null
+          tags: string[] | null
+          title: string
+          what_he_does: string | null
+          what_she_does: string | null
+          when_to_use: string | null
+        }
+        Insert: {
+          category_id?: string | null
+          common_mistake?: string | null
+          created_at?: string
+          description?: string | null
+          difficulty?: string
+          downloadable?: boolean
+          estimated_seconds?: number
+          framing?: string | null
+          how_to_do?: string | null
+          id?: string
+          image_url?: string | null
+          is_30s?: boolean
+          is_sos?: boolean
+          natural_tip?: string | null
+          scenario?: string | null
+          style?: string | null
+          tags?: string[] | null
+          title: string
+          what_he_does?: string | null
+          what_she_does?: string | null
+          when_to_use?: string | null
+        }
+        Update: {
+          category_id?: string | null
+          common_mistake?: string | null
+          created_at?: string
+          description?: string | null
+          difficulty?: string
+          downloadable?: boolean
+          estimated_seconds?: number
+          framing?: string | null
+          how_to_do?: string | null
+          id?: string
+          image_url?: string | null
+          is_30s?: boolean
+          is_sos?: boolean
+          natural_tip?: string | null
+          scenario?: string | null
+          style?: string | null
+          tags?: string[] | null
+          title?: string
+          what_he_does?: string | null
+          what_she_does?: string | null
+          when_to_use?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "poses_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          access_status: string
+          created_at: string
+          device_count: number
+          email: string | null
+          id: string
+          last_login: string | null
+          name: string | null
+        }
+        Insert: {
+          access_status?: string
+          created_at?: string
+          device_count?: number
+          email?: string | null
+          id: string
+          last_login?: string | null
+          name?: string | null
+        }
+        Update: {
+          access_status?: string
+          created_at?: string
+          device_count?: number
+          email?: string | null
+          id?: string
+          last_login?: string | null
+          name?: string | null
+        }
+        Relationships: []
+      }
+      script_poses: {
+        Row: {
+          id: string
+          order_number: number
+          pose_id: string
+          script_id: string
+        }
+        Insert: {
+          id?: string
+          order_number?: number
+          pose_id: string
+          script_id: string
+        }
+        Update: {
+          id?: string
+          order_number?: number
+          pose_id?: string
+          script_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "script_poses_pose_id_fkey"
+            columns: ["pose_id"]
+            isOneToOne: false
+            referencedRelation: "poses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "script_poses_script_id_fkey"
+            columns: ["script_id"]
+            isOneToOne: false
+            referencedRelation: "scripts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scripts: {
+        Row: {
+          cover_image: string | null
+          created_at: string
+          description: string | null
+          id: string
+          scenario: string | null
+          title: string
+          total_poses: number | null
+        }
+        Insert: {
+          cover_image?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          scenario?: string | null
+          title: string
+          total_poses?: number | null
+        }
+        Update: {
+          cover_image?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          scenario?: string | null
+          title?: string
+          total_poses?: number | null
+        }
+        Relationships: []
+      }
+      trip_poses: {
+        Row: {
+          created_at: string
+          id: string
+          order_number: number
+          pose_id: string
+          section_id: string | null
+          status: string
+          trip_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          order_number?: number
+          pose_id: string
+          section_id?: string | null
+          status?: string
+          trip_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          order_number?: number
+          pose_id?: string
+          section_id?: string | null
+          status?: string
+          trip_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_poses_pose_id_fkey"
+            columns: ["pose_id"]
+            isOneToOne: false
+            referencedRelation: "poses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trip_poses_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "trip_sections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trip_poses_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trip_sections: {
+        Row: {
+          created_at: string
+          id: string
+          order_number: number
+          section_name: string
+          trip_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          order_number?: number
+          section_name: string
+          trip_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          order_number?: number
+          section_name?: string
+          trip_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_sections_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trips: {
+        Row: {
+          cover_image: string | null
+          created_at: string
+          destination: string | null
+          end_date: string | null
+          id: string
+          notes: string | null
+          start_date: string | null
+          trip_name: string
+          trip_type: string | null
+          user_id: string
+        }
+        Insert: {
+          cover_image?: string | null
+          created_at?: string
+          destination?: string | null
+          end_date?: string | null
+          id?: string
+          notes?: string | null
+          start_date?: string | null
+          trip_name: string
+          trip_type?: string | null
+          user_id: string
+        }
+        Update: {
+          cover_image?: string | null
+          created_at?: string
+          destination?: string | null
+          end_date?: string | null
+          id?: string
+          notes?: string | null
+          start_date?: string | null
+          trip_name?: string
+          trip_type?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
