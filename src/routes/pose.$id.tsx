@@ -26,7 +26,7 @@ function PoseDetailPage() {
     queryKey: ["pose-similar", poseQ.data?.category_id, id],
     enabled: !!poseQ.data?.category_id,
     queryFn: async () => {
-      const { data } = await supabase.from("poses").select("*").eq("category_id", poseQ.data!.category_id).neq("id", id).limit(8);
+      const { data } = await supabase.from("poses").select("*").eq("category_id", poseQ.data!.category_id as string).neq("id", id).limit(8);
       return data ?? [];
     },
   });
@@ -43,7 +43,7 @@ function PoseDetailPage() {
         </Link>
         <div className="grid gap-8 md:grid-cols-[1fr_1.1fr]">
           <div className="relative overflow-hidden rounded-3xl border border-border/60">
-            <img src={p.image_url} alt={p.title} className="aspect-[3/4] w-full object-cover" />
+            <img src={p.image_url ?? ""} alt={p.title} className="aspect-[3/4] w-full object-cover" />
             <div className="pointer-events-none absolute inset-0 flex items-end justify-end p-3">
               <span className="rounded-full bg-background/40 px-2 py-1 text-[9px] uppercase tracking-wider text-foreground/70 backdrop-blur">
                 Netflix de Poses
@@ -108,7 +108,7 @@ function PoseDetailPage() {
               {similarQ.data.map((sp) => (
                 <Link key={sp.id} to="/pose/$id" params={{ id: sp.id }} className="group relative block w-[160px] shrink-0 overflow-hidden rounded-xl border border-border/60">
                   <div className="relative aspect-[3/4]">
-                    <img src={sp.image_url} alt={sp.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition group-hover:scale-105" />
+                    <img src={sp.image_url ?? ""} alt={sp.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
                     <div className="absolute inset-x-0 bottom-0 p-2 text-xs font-medium line-clamp-2">{sp.title}</div>
                   </div>

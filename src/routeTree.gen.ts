@@ -9,13 +9,65 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SosRouteImport } from './routes/sos'
+import { Route as RoteirosRouteImport } from './routes/roteiros'
+import { Route as Modo30sRouteImport } from './routes/modo-30s'
+import { Route as MinhaViagemRouteImport } from './routes/minha-viagem'
+import { Route as FavoritosRouteImport } from './routes/favoritos'
+import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ContaRouteImport } from './routes/conta'
+import { Route as ComoUsarRouteImport } from './routes/como-usar'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RoteirosIdRouteImport } from './routes/roteiros.$id'
+import { Route as PoseIdRouteImport } from './routes/pose.$id'
+import { Route as MinhaViagemIdRouteImport } from './routes/minha-viagem.$id'
+import { Route as CategoriasSlugRouteImport } from './routes/categorias.$slug'
 
+const SosRoute = SosRouteImport.update({
+  id: '/sos',
+  path: '/sos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoteirosRoute = RoteirosRouteImport.update({
+  id: '/roteiros',
+  path: '/roteiros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Modo30sRoute = Modo30sRouteImport.update({
+  id: '/modo-30s',
+  path: '/modo-30s',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MinhaViagemRoute = MinhaViagemRouteImport.update({
+  id: '/minha-viagem',
+  path: '/minha-viagem',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FavoritosRoute = FavoritosRouteImport.update({
+  id: '/favoritos',
+  path: '/favoritos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DownloadsRoute = DownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContaRoute = ContaRouteImport.update({
+  id: '/conta',
+  path: '/conta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComoUsarRoute = ComoUsarRouteImport.update({
+  id: '/como-usar',
+  path: '/como-usar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -28,44 +80,212 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RoteirosIdRoute = RoteirosIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => RoteirosRoute,
+} as any)
+const PoseIdRoute = PoseIdRouteImport.update({
+  id: '/pose/$id',
+  path: '/pose/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MinhaViagemIdRoute = MinhaViagemIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => MinhaViagemRoute,
+} as any)
+const CategoriasSlugRoute = CategoriasSlugRouteImport.update({
+  id: '/categorias/$slug',
+  path: '/categorias/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/como-usar': typeof ComoUsarRoute
+  '/conta': typeof ContaRoute
   '/dashboard': typeof DashboardRoute
+  '/downloads': typeof DownloadsRoute
+  '/favoritos': typeof FavoritosRoute
+  '/minha-viagem': typeof MinhaViagemRouteWithChildren
+  '/modo-30s': typeof Modo30sRoute
+  '/roteiros': typeof RoteirosRouteWithChildren
+  '/sos': typeof SosRoute
+  '/categorias/$slug': typeof CategoriasSlugRoute
+  '/minha-viagem/$id': typeof MinhaViagemIdRoute
+  '/pose/$id': typeof PoseIdRoute
+  '/roteiros/$id': typeof RoteirosIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/como-usar': typeof ComoUsarRoute
+  '/conta': typeof ContaRoute
   '/dashboard': typeof DashboardRoute
+  '/downloads': typeof DownloadsRoute
+  '/favoritos': typeof FavoritosRoute
+  '/minha-viagem': typeof MinhaViagemRouteWithChildren
+  '/modo-30s': typeof Modo30sRoute
+  '/roteiros': typeof RoteirosRouteWithChildren
+  '/sos': typeof SosRoute
+  '/categorias/$slug': typeof CategoriasSlugRoute
+  '/minha-viagem/$id': typeof MinhaViagemIdRoute
+  '/pose/$id': typeof PoseIdRoute
+  '/roteiros/$id': typeof RoteirosIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/como-usar': typeof ComoUsarRoute
+  '/conta': typeof ContaRoute
   '/dashboard': typeof DashboardRoute
+  '/downloads': typeof DownloadsRoute
+  '/favoritos': typeof FavoritosRoute
+  '/minha-viagem': typeof MinhaViagemRouteWithChildren
+  '/modo-30s': typeof Modo30sRoute
+  '/roteiros': typeof RoteirosRouteWithChildren
+  '/sos': typeof SosRoute
+  '/categorias/$slug': typeof CategoriasSlugRoute
+  '/minha-viagem/$id': typeof MinhaViagemIdRoute
+  '/pose/$id': typeof PoseIdRoute
+  '/roteiros/$id': typeof RoteirosIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/como-usar'
+    | '/conta'
+    | '/dashboard'
+    | '/downloads'
+    | '/favoritos'
+    | '/minha-viagem'
+    | '/modo-30s'
+    | '/roteiros'
+    | '/sos'
+    | '/categorias/$slug'
+    | '/minha-viagem/$id'
+    | '/pose/$id'
+    | '/roteiros/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard'
-  id: '__root__' | '/' | '/auth' | '/dashboard'
+  to:
+    | '/'
+    | '/auth'
+    | '/como-usar'
+    | '/conta'
+    | '/dashboard'
+    | '/downloads'
+    | '/favoritos'
+    | '/minha-viagem'
+    | '/modo-30s'
+    | '/roteiros'
+    | '/sos'
+    | '/categorias/$slug'
+    | '/minha-viagem/$id'
+    | '/pose/$id'
+    | '/roteiros/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/como-usar'
+    | '/conta'
+    | '/dashboard'
+    | '/downloads'
+    | '/favoritos'
+    | '/minha-viagem'
+    | '/modo-30s'
+    | '/roteiros'
+    | '/sos'
+    | '/categorias/$slug'
+    | '/minha-viagem/$id'
+    | '/pose/$id'
+    | '/roteiros/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  ComoUsarRoute: typeof ComoUsarRoute
+  ContaRoute: typeof ContaRoute
   DashboardRoute: typeof DashboardRoute
+  DownloadsRoute: typeof DownloadsRoute
+  FavoritosRoute: typeof FavoritosRoute
+  MinhaViagemRoute: typeof MinhaViagemRouteWithChildren
+  Modo30sRoute: typeof Modo30sRoute
+  RoteirosRoute: typeof RoteirosRouteWithChildren
+  SosRoute: typeof SosRoute
+  CategoriasSlugRoute: typeof CategoriasSlugRoute
+  PoseIdRoute: typeof PoseIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sos': {
+      id: '/sos'
+      path: '/sos'
+      fullPath: '/sos'
+      preLoaderRoute: typeof SosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roteiros': {
+      id: '/roteiros'
+      path: '/roteiros'
+      fullPath: '/roteiros'
+      preLoaderRoute: typeof RoteirosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modo-30s': {
+      id: '/modo-30s'
+      path: '/modo-30s'
+      fullPath: '/modo-30s'
+      preLoaderRoute: typeof Modo30sRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/minha-viagem': {
+      id: '/minha-viagem'
+      path: '/minha-viagem'
+      fullPath: '/minha-viagem'
+      preLoaderRoute: typeof MinhaViagemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/favoritos': {
+      id: '/favoritos'
+      path: '/favoritos'
+      fullPath: '/favoritos'
+      preLoaderRoute: typeof FavoritosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/downloads': {
+      id: '/downloads'
+      path: '/downloads'
+      fullPath: '/downloads'
+      preLoaderRoute: typeof DownloadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conta': {
+      id: '/conta'
+      path: '/conta'
+      fullPath: '/conta'
+      preLoaderRoute: typeof ContaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/como-usar': {
+      id: '/como-usar'
+      path: '/como-usar'
+      fullPath: '/como-usar'
+      preLoaderRoute: typeof ComoUsarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -82,13 +302,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/roteiros/$id': {
+      id: '/roteiros/$id'
+      path: '/$id'
+      fullPath: '/roteiros/$id'
+      preLoaderRoute: typeof RoteirosIdRouteImport
+      parentRoute: typeof RoteirosRoute
+    }
+    '/pose/$id': {
+      id: '/pose/$id'
+      path: '/pose/$id'
+      fullPath: '/pose/$id'
+      preLoaderRoute: typeof PoseIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/minha-viagem/$id': {
+      id: '/minha-viagem/$id'
+      path: '/$id'
+      fullPath: '/minha-viagem/$id'
+      preLoaderRoute: typeof MinhaViagemIdRouteImport
+      parentRoute: typeof MinhaViagemRoute
+    }
+    '/categorias/$slug': {
+      id: '/categorias/$slug'
+      path: '/categorias/$slug'
+      fullPath: '/categorias/$slug'
+      preLoaderRoute: typeof CategoriasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
+
+interface MinhaViagemRouteChildren {
+  MinhaViagemIdRoute: typeof MinhaViagemIdRoute
+}
+
+const MinhaViagemRouteChildren: MinhaViagemRouteChildren = {
+  MinhaViagemIdRoute: MinhaViagemIdRoute,
+}
+
+const MinhaViagemRouteWithChildren = MinhaViagemRoute._addFileChildren(
+  MinhaViagemRouteChildren,
+)
+
+interface RoteirosRouteChildren {
+  RoteirosIdRoute: typeof RoteirosIdRoute
+}
+
+const RoteirosRouteChildren: RoteirosRouteChildren = {
+  RoteirosIdRoute: RoteirosIdRoute,
+}
+
+const RoteirosRouteWithChildren = RoteirosRoute._addFileChildren(
+  RoteirosRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  ComoUsarRoute: ComoUsarRoute,
+  ContaRoute: ContaRoute,
   DashboardRoute: DashboardRoute,
+  DownloadsRoute: DownloadsRoute,
+  FavoritosRoute: FavoritosRoute,
+  MinhaViagemRoute: MinhaViagemRouteWithChildren,
+  Modo30sRoute: Modo30sRoute,
+  RoteirosRoute: RoteirosRouteWithChildren,
+  SosRoute: SosRoute,
+  CategoriasSlugRoute: CategoriasSlugRoute,
+  PoseIdRoute: PoseIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
