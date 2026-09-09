@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Home, Grid3x3, Map, Sparkles, Download } from "lucide-react";
+import { Home, Grid3x3, Map, Sparkles, Download, Heart } from "lucide-react";
 import type { ReactNode } from "react";
 
 const desktopNav = [
@@ -7,6 +7,7 @@ const desktopNav = [
   { to: "/sos", label: "SOS", icon: Sparkles },
   { to: "/modo-30s", label: "Modo 30s", icon: Grid3x3 },
   { to: "/roteiros", label: "Roteiros", icon: Map },
+  { to: "/favoritos", label: "Salvas", icon: Heart },
   { to: "/downloads", label: "Downloads", icon: Download },
 ] as const;
 
@@ -15,7 +16,7 @@ const mobileNav = [
   { to: "/roteiros", label: "Roteiros", icon: Map, hero: false },
   { to: "/sos", label: "SOS", icon: Sparkles, hero: true },
   { to: "/modo-30s", label: "30s", icon: Grid3x3, hero: false },
-  { to: "/downloads", label: "Downloads", icon: Download, hero: false },
+  { to: "/favoritos", label: "Salvas", icon: Heart, hero: false },
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
