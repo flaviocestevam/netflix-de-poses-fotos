@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { diffColor, DIFFICULTY_LABEL, formatSeconds } from "@/lib/np-utils";
-import { Heart, Plus } from "lucide-react";
 
 export function PoseCard({ pose, compact = false }: { pose: any; compact?: boolean }) {
   return (
@@ -27,19 +26,9 @@ export function PoseCard({ pose, compact = false }: { pose: any; compact?: boole
             </span>
           )}
         </div>
-        <div className="absolute right-2 top-2 flex gap-1">
-          <span className="grid h-7 w-7 place-items-center rounded-full bg-background/70 text-foreground/80 backdrop-blur transition group-hover:bg-primary group-hover:text-primary-foreground">
-            <Heart className="h-3.5 w-3.5" />
-          </span>
-        </div>
         <div className="absolute inset-x-0 bottom-0 p-3">
           <div className="line-clamp-2 text-sm font-semibold leading-tight">{pose.title}</div>
-          <div className="mt-1 flex items-center justify-between text-[11px] text-muted-foreground">
-            <span>{formatSeconds(pose.estimated_seconds)}</span>
-            <span className="inline-flex items-center gap-1 text-primary">
-              <Plus className="h-3 w-3" /> Viagem
-            </span>
-          </div>
+          <div className="mt-1 text-[11px] text-muted-foreground">{formatSeconds(pose.estimated_seconds)}</div>
         </div>
       </div>
     </Link>
