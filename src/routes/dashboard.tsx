@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Search, Sparkles, ArrowRight, Zap, Plane, Map, Download } from "lucide-react";
+import { Search, Sparkles, ArrowRight, Zap, Heart, Map, Download } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { diffColor, DIFFICULTY_LABEL, formatSeconds } from "@/lib/np-utils";
 import { useState } from "react";
@@ -50,14 +50,13 @@ function Dashboard() {
       return data ?? [];
     },
   });
-  const firstName = "querida";
 
   return (
     <div className="space-y-10">
       <section className="space-y-3 pt-2">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Bem-vinda</p>
         <h1 className="font-display text-3xl font-bold leading-tight text-balance md:text-5xl">
-          Olá, {firstName}. Esta é a sua <span className="italic">Netflix de Poses</span>.
+          Esta é a sua <span className="italic">Netflix de Poses</span>.
         </h1>
         <p className="max-w-2xl text-sm text-muted-foreground md:text-base">
           Escolha a pose. Mostre para ele. Tire a foto. Tudo pelo celular, em menos de 30 segundos.
@@ -92,7 +91,7 @@ function Dashboard() {
           { label: "SOS Foto", icon: Sparkles, sub: "Resgate rápido", to: "/sos" },
           { label: "Modo 30s", icon: Zap, sub: "Poses fáceis", to: "/modo-30s" },
           { label: "Roteiros", icon: Map, sub: "Sequências prontas", to: "/roteiros" },
-          { label: "Minha Viagem", icon: Plane, sub: "Suas pastas", to: "/minha-viagem" },
+          { label: "Poses Salvas", icon: Heart, sub: "Quero fazer", to: "/favoritos" },
         ].map((t) => {
           const I = t.icon;
           return (
