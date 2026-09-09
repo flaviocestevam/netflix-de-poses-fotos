@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Home, Grid3x3, Heart, Plane, Map, Sparkles, User, Eye } from "lucide-react";
+import { Home, Grid3x3, Map, Sparkles, Download } from "lucide-react";
 import type { ReactNode } from "react";
 
 const desktopNav = [
@@ -7,16 +7,15 @@ const desktopNav = [
   { to: "/sos", label: "SOS", icon: Sparkles },
   { to: "/modo-30s", label: "Modo 30s", icon: Grid3x3 },
   { to: "/roteiros", label: "Roteiros", icon: Map },
-  { to: "/minha-viagem", label: "Minha Viagem", icon: Plane },
-  { to: "/favoritos", label: "Favoritos", icon: Heart },
+  { to: "/downloads", label: "Downloads", icon: Download },
 ] as const;
 
 const mobileNav = [
   { to: "/dashboard", label: "Início", icon: Home, hero: false },
   { to: "/roteiros", label: "Roteiros", icon: Map, hero: false },
   { to: "/sos", label: "SOS", icon: Sparkles, hero: true },
-  { to: "/minha-viagem", label: "Viagem", icon: Plane, hero: false },
-  { to: "/favoritos", label: "Favoritos", icon: Heart, hero: false },
+  { to: "/modo-30s", label: "30s", icon: Grid3x3, hero: false },
+  { to: "/downloads", label: "Downloads", icon: Download, hero: false },
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -25,11 +24,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Top bar */}
-      <div className="sticky top-0 z-50 border-b border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-center text-[11px] font-medium text-amber-200 backdrop-blur">
-        <span className="inline-flex items-center gap-1.5"><Eye className="h-3 w-3" /> Modo preview · login desabilitado para análise</span>
-      </div>
-      <header className="sticky top-7 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
           <Link to="/dashboard" className="flex items-center gap-2">
             <div className="grid h-9 w-9 place-items-center rounded-xl gradient-rose text-primary-foreground">
@@ -37,7 +32,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </div>
             <div className="leading-tight">
               <div className="font-display text-lg font-bold tracking-tight">Netflix de Poses</div>
-              <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Área da cliente</div>
+              <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Catálogo de poses</div>
             </div>
           </Link>
 
@@ -59,16 +54,6 @@ export function AppShell({ children }: { children: ReactNode }) {
               );
             })}
           </nav>
-
-          <div className="flex items-center gap-1">
-            <Link
-              to="/conta"
-              className="grid h-9 w-9 place-items-center rounded-full bg-secondary text-foreground/80 hover:bg-secondary/70"
-              aria-label="Conta"
-            >
-              <User className="h-4 w-4" />
-            </Link>
-          </div>
         </div>
       </header>
 
@@ -76,7 +61,6 @@ export function AppShell({ children }: { children: ReactNode }) {
         {children}
       </main>
 
-      {/* Mobile bottom nav */}
       <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/95 backdrop-blur-xl lg:hidden">
         <ul className="mx-auto flex max-w-md items-end justify-around px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2">
           {mobileNav.map((item) => {
